@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion-based Entertainment</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-size: cover;
+            background-position: center;
+            color: rgb(11, 0, 0);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+
+        button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #selectButtons {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #languageSelect {
+            text-align: center;
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Style for horizontal radio buttons */
+        #languageSelect input[type="radio"] {
+            margin: 0 10px;
+        }
+
+        #historyContainer {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        textarea {
+            width: 100%;
+        }
+
+        hr {
+            border: 0;
+            border-top: 1px solid #ccc;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Emotion-based Entertainment</h1>
+        <hr>
+
+        <div id="resultContainer">
+            <!-- Display detected emotion here -->
+        </div>
+        <div id="musicContainer">
+            <!-- Display selected song here -->
+        </div>
+        <div id="movieContainer">
+            <!-- Display selected movie here -->
+        </div>
+        <div id="selectButtons">
+            <h2>Select Entertainment</h2>
+            <button onclick="selectMedia('music')">Select Music</button>
+            <button onclick="selectMedia('movie')">Select Movie</button>
+        </div>
+        <button onclick="startEmotionDetection()">Start Emotion Detection</button>
+        <!-- <div id="historyContainer">
+            <h2>History</h2>
+            <textarea id="history" rows="4" cols="50" readonly></textarea>
+        </div> -->
+    </div>
+    <script>
+        function selectMedia(mediaType) {
+            localStorage.setItem('mediaType', mediaType);
+        }
+
+        function startEmotionDetection() {
+            const mediaType = localStorage.getItem('mediaType');
+            // if (!mediaType) {
+            //     alert('Please select media type (music or movie) first.');
+            //     return;
+            // }
+
+            // Show loading message
+            document.getElementById('resultContainer').innerHTML = 'Detecting emotion...';
+
+            // Use AJAX/fetch to trigger the emotion detection on the server
+            fetch('/detect_emotion')
+                .then(response => response.json())
+                .then(data => {
+                    // Display the detected emotion
+                    const resultContainer = document.getElementById('resultContainer');
+                    resultContainer.innerHTML = `Detected Emotion: ${data.emotion}`;
+
+                    // // Store emotion in history
+                    // const historyTextArea = document.getElementById('history');
+                    // historyTextArea.value += `Detected Emotion: ${data.emotion}\n`;
+
+                    fetch(`/select_media?type=${mediaType}&emotion=${data.emotion}`)
+                        .then(response => response.json())
+                        .then(selectedMedia => {
+                            // Open the selected media's URL directly in a new tab
+                            window.open(selectedMedia.link, '_blank');
+
+                            // Display the selected media information on the page
+                            const mediaContainer = mediaType === 'music' ? document.getElementById('musicContainer') : document.getElementById('movieContainer');
+                            mediaContainer.innerHTML = `
+                                <div>
+                                    <h3>${selectedMedia.name}</h3>
+                                    <p>
+                                        URL: 
+                                        <a href="${selectedMedia.link}" target="_blank">${selectedMedia.link}</a>
+                                    </p>
+                                </div>
+                            `;
+
+                            // Store selected media in history
+                            historyTextArea.value += `Selected ${mediaType.charAt(0).toUpperCase() + mediaType.slice(1)}: ${selectedMedia.name}\n`;
+                        })
+                        .catch(error => console.error('Error selecting media:', error));
+                })
+                .catch(error => console.error('Error detecting emotion:', error));
+        }
+    </script>
+</body>

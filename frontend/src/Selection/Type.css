@@ -1,0 +1,45 @@
+.type-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-image: url('../images/bg3.webp');
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 20px;
+    height: 25pc;
+    margin-top: 3pc;
+}
+
+.title {
+    text-align: center;
+    margin-left: 8pc;
+    font-size: 3pc;
+    color: white;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    margin-right: 25pc;
+    flex-grow: 1;
+}
+
+.btn-movies,
+.btn-songs {
+    width: 60%;
+    margin-left: 10pc;
+    margin-bottom: 10px;
+    margin-right: 10pc;
+}
+
+.col-span-3 {
+    margin-left: 3pc;
+}
+
+.btn-search{
+    width: 60%;
+}
+
+#btn-search{
+    margin-left: 2pc;
+}

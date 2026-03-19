@@ -1,0 +1,32 @@
+.detect-container {
+    background-image: url('../images/bg1.webp');
+    background-size: cover;
+    min-height: 25pc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -10pc;
+}
+
+.content {
+    text-align: center;
+}
+
+.detect-title {
+    font-size: 3pc;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+}
+
+.dectect-btn {
+    width: 35%;
+}
+
+.dectect-span {
+    margin-left: 4pc
+}

@@ -1,0 +1,64 @@
+.mood-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 20px;
+}
+
+.mood-title {
+    text-align: center;
+    margin-top: 10pc;
+    margin-left: 5pc;
+}
+
+.images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-left: 16pc;
+}
+
+.image-box {
+    position: relative;
+    overflow: hidden;
+    background-color: #f0f0f0;
+    width: calc(34% - 5px);
+    height: auto;
+}
+
+.image-container {
+    position: relative;
+}
+
+.image {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.image-box:hover .image {
+    transform: scale(0.95);
+}
+
+.image-box:hover .overlay {
+    opacity: 1;
+}
+
+#h1{
+    margin-bottom: 3pc;
+    font-size: 2pc;
+    font-weight: 500;
+}

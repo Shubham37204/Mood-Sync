@@ -1,0 +1,28 @@
+   .HomeFront {
+       background-image: url('../images/bg.webp');
+       background-size: cover;
+       background-position: center;
+       height: 100vh;
+       padding: 20px;
+   }
+
+   .Content {
+       display: flex;
+       flex-direction: column;
+       align-items: flex-start;
+       justify-content: center;
+       height: 100%;
+   }
+
+   .Ai {
+       font-size: 4pc;
+       font-weight: 400;
+       color: #fff;
+   }
+
+   .Motto {
+       font-size: 4pc;
+       font-weight: 400;
+       color: #fff;
+
+   }
